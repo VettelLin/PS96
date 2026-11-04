@@ -1,0 +1,173 @@
+﻿+|		m_pParent->m_pExpData->SetChannelSplineThreshold(m_vecPlateSelectedSite[0], wParam+1, DEFAULT_DATA_DELTARN, pThreLineInfo->GetThreLineValue());
++|		m_pParent->m_pExpData->SetChannelSplineThreshold(m_vecPlateSelectedSite[0], wParam+1, DEFAULT_DATA_NORMALIZE, pThreLineInfo->GetThreLineValue());
++|		m_pParent->m_pExpData->SetChannelSplineThreshold(m_vecPlateSelectedSite[0], iCurSel+1, DEFAULT_DATA_DELTARN, dNewThre);
++|		m_pParent->m_pExpData->SetChannelSplineThreshold(m_vecPlateSelectedSite[0], iCurSel+1, DEFAULT_DATA_NORMALIZE, dNewThre);
++|		//m_crvAml.SetBeShowThreLine(k,bChanHaveLineShow);
++|		//m_crvAmlDelRn.SetBeShowThreLine(k,bChanHaveLineShow);
++|	ResetThresholdLineValueBySelTube();
++|
++|
++|void CDataAnaDlg::ResetThresholdLineValueBySelTube()
++|{
++|	int iChanNum = m_pParent->m_pExpData->GetChannelCount();
++|	int iCalibChanIndex = m_pParent->m_pExpData->GetCalibrateChannel() - 1;
++|	vector<int> vecChanSelState = m_pParent->m_pExpData->GetDataAnaChannelBtSelectState();
++|	BOOL bSelOneTube = m_vecPlateSelectedSite.size() == 1;
++|	int iSelTubeIndex = 0;
++|	if (m_vecPlateSelectedSite.size() > 0)
++|		iSelTubeIndex = m_vecPlateSelectedSite[0];
++|	CTubeInfo* pTubeInfo = m_pParent->m_pExpData->GetTubeInfoAt(iSelTubeIndex);
++|	int iCurveSel = m_cbSelCrvToShow.GetCurSel();
++|	m_edThreValue.EnableWindow(bSelOneTube);
++|	m_cbSelChanThre.EnableWindow(bSelOneTube);
++|
++|	if (m_crvAml.m_vecChanThreInfo.size() < 0 || m_crvAmlDelRn.m_vecChanThreInfo.size() < 0)
++|		return;
++|
++|	for(int i=0; i<iChanNum; ++i)
++|	{
++|		if(i == iCalibChanIndex)//校准通道不显示阈值信息
++|			continue;
++|
++|		CDyeTargetInfo* pTarget = pTubeInfo->GetTargetInfo(i);
++|		if (pTarget == NULL)
++|			continue;
++|
++|		tagAnaAmplifyPara* pAmlParam = m_pParent->m_pExpData->GetAnalysisPara()->GetAmplifyParaByTarget(pTarget->GetTargetName(), pTarget->GetDyeName());
++|		if (pAmlParam == NULL)
++|		{
++|			pAmlParam = m_pParent->m_pExpData->GetAnalysisPara()->GetAmplifyParaByDye(pTarget->GetDyeName());
++|		}
++|		if (pAmlParam == NULL)
++|			continue;
++|
++|		//m_crvAml.SetBeShowThreLine(i, bSelOneTube);
++|		//m_crvAmlDelRn.SetBeShowThreLine(i, bSelOneTube);
++|		m_crvAml.m_vecChanThreInfo[i].m_tliNormolize.SetBeShow(bSelOneTube && vecChanSelState[i] == 1);
++|		m_crvAmlDelRn.m_vecChanThreInfo[i].m_tliDeltaRn.SetBeShow(bSelOneTube && vecChanSelState[i] == 1);
++|		if (bSelOneTube)
++|		{
++|			m_crvAml.m_vecChanThreInfo[i].m_strChanName = pTarget->GetDyeName();
++|			m_crvAml.m_vecChanThreInfo[i].m_strTargetName = pTarget->GetTargetName();
++|			m_crvAmlDelRn.m_vecChanThreInfo[i].m_tliNormolize.m_bAutoThre = (SPLINE_THRESHOLD_AUTO == pAmlParam->nThresholdType);
++|			m_crvAmlDelRn.m_vecChanThreInfo[i].m_tliNormolize.m_dThreAuto = pAmlParam->dCalcNormalizeThreshold;
++|			m_crvAmlDelRn.m_vecChanThreInfo[i].m_tliNormolize.m_dThre = pAmlParam->dCalcNormalizeThreshold;
++|
++|			m_crvAmlDelRn.m_vecChanThreInfo[i].m_strChanName = pTarget->GetDyeName();
++|			m_crvAmlDelRn.m_vecChanThreInfo[i].m_strTargetName = pTarget->GetTargetName();
++|			m_crvAmlDelRn.m_vecChanThreInfo[i].m_tliDeltaRn.m_bAutoThre = (SPLINE_THRESHOLD_AUTO == pAmlParam->nThresholdType);
++|			m_crvAmlDelRn.m_vecChanThreInfo[i].m_tliDeltaRn.m_dThreAuto = pAmlParam->dCalcDeltaRnThreshold;
++|			m_crvAmlDelRn.m_vecChanThreInfo[i].m_tliDeltaRn.m_dThre = pAmlParam->dCalcDeltaRnThreshold;
++|
++|			if(i == m_cbSelChanThre.GetCurSel())
++|			{
++|				if (iCurveSel == 0)
++|				{
++|					m_edThreValue.SetText(pAmlParam->dCalcDeltaRnThreshold,TRUE,TRUE);
++|				}
++|				else
++|				{
++|					m_edThreValue.SetText(pAmlParam->dCalcNormalizeThreshold,TRUE,TRUE);
++|				}
++|			}
++|		}
++|	}
++|}
+-|		m_pParent->m_pExpData->SetChannelSplineThreshold(wParam+1, DEFAULT_DATA_DELTARN, pThreLineInfo->GetThreLineValue());
+-|		m_pParent->m_pExpData->SetChannelSplineThreshold(wParam+1, DEFAULT_DATA_NORMALIZE, pThreLineInfo->GetThreLineValue());
+-|		m_pParent->m_pExpData->SetChannelSplineThreshold(iCurSel+1, DEFAULT_DATA_DELTARN, dNewThre);
+-|		m_pParent->m_pExpData->SetChannelSplineThreshold(iCurSel+1, DEFAULT_DATA_NORMALIZE, dNewThre);
+-|#ifdef PS96INSTRUMENT
+-|				//PS96，如果样本类型为待测样本，样本ID为空，不显示对应曲线
+-|#else
+-|				if(!pTubeInfo[i].GetBeNoneSampleType() && k < vecChanSelState.size() && (1 == vecChanSelState[k]))
+-|		m_crvAml.SetBeShowThreLine(k,bChanHaveLineShow);
+-|		m_crvAmlDelRn.SetBeShowThreLine(k,bChanHaveLineShow);
+-|#endif
+-|//
+-|//
+-|//LRESULT CDataAnaDlg::OnMsgRowSelectedChange(WPARAM wParam, LPARAM lParam)
+-|//{
+-|//	CArray<int>	arraySelIndex;
+-|//	int iRowNum = m_lstAnaResult.GetRowNum();
+-|//	vector<int> vecSelectedRowId;
+-|//	vecSelectedRowId = m_lstAnaResult.GetSelectedRowId();
+-|//	CString strTubeID, strDye;
+-|//	int iLineID = -1;
+-|//	BOOL bLineSelected = FALSE;
+-|//	for (int i=0; i<iRowNum; i++)
+-|//	{
+-|//		strTubeID = m_lstAnaResult.GetItemText(i, 1);
+-|//		strDye = m_lstAnaResult.GetItemText(i, 4);
+-|//		iLineID = m_pParent->m_pExpData->GenerateLineIDBy(strTubeID, strDye);
+-|//		if (iLineID == -1)
+-|//			continue;
+-|//
+-|//		bLineSelected = FALSE;
+-|//		for (int j=0; j<vecSelectedRowId.size(); j++)
+-|//		{
+-|//			if (i == vecSelectedRowId[j])
+-|//			{
+-|//				bLineSelected = TRUE;
+-|//				break;
+-|//			}
+-|//		}
+-|//
+-|//		m_crvAml.SetLineShow(iLineID, bLineSelected);
+-|//		m_crvAmlDelRn.SetLineShow(iLineID, bLineSelected);
+-|//		m_crvOriginAml.SetLineShow(iLineID,bLineSelected);
+-|//		m_crvPeakMelt.SetLineShow(iLineID, bLineSelected);
+-|//		m_crvOriginMelt.SetLineShow(iLineID, bLineSelected);
+-|//	}
+-|//
+-|//	CTubeInfo* pTubeParam = m_pParent->m_pExpData->GetFirstUsedTube();
+-|//	if (pTubeParam != NULL)
+-|//	{
+-|//		int iDyeCount = pTubeParam->GetChannelNum();
+-|//		for (int i=0; i<iDyeCount; i++)
+-|//		{
+-|//			BOOL bChanHaveLineShow = FALSE;
+-|//			CDyeTargetInfo* pTargetCol = pTubeParam->GetTargetInfo(i);
+-|//			for (int j=0; j<vecSelectedRowId.size(); j++)
+-|//			{
+-|//				strDye = m_lstAnaResult.GetItemText(vecSelectedRowId[j], 4);
+-|//				if (strDye == pTargetCol->GetDyeName())
+-|//				{
+-|//					bChanHaveLineShow = TRUE;
+-|//					break;
+-|//				}
+-|//			}
+-|//
+-|//			m_crvAml.SetBeShowThreLine(i, bChanHaveLineShow);
+-|//			m_crvAmlDelRn.SetBeShowThreLine(i, bChanHaveLineShow);
+-|//		}
+-|//	}
+-|//
+-|//
+-|//	if(NULL != m_crvAml.GetSafeHwnd())
+-|//	{
+-|//		m_crvAml.Invalidate(TRUE);
+-|//	}
+-|//	if(NULL != m_crvAmlDelRn.GetSafeHwnd())
+-|//	{
+-|//		m_crvAmlDelRn.Invalidate(TRUE);
+-|//	}
+-|//	if(NULL != m_crvOriginAml.GetSafeHwnd())
+-|//	{
+-|//		m_crvOriginAml.Invalidate(TRUE);
+-|//	}
+-|//	if(NULL != m_crvPeakMelt.GetSafeHwnd())
+-|//	{
+-|//		m_crvPeakMelt.Invalidate(TRUE);
+-|//	}
+-|//	if(NULL != m_crvOriginMelt.GetSafeHwnd())
+-|//	{
+-|//		m_crvOriginMelt.Invalidate(TRUE);
+-|//	}
+-|//	if(NULL != m_crvStd.GetSafeHwnd())
+-|//	{
+-|//		m_crvStd.Invalidate(TRUE);
+-|//	}
+-|//
+-|//	return 0;
+-|//}

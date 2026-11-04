@@ -1,0 +1,5 @@
+﻿+|	void SetCalcSplineThresholdUsed(BOOL bUsed) {m_bCalcSplineUsed=bUsed;}
++|	BOOL GetCalcSplineThresholdUsed() { return m_bCalcSplineUsed; }
++|
++|	BOOL m_bCalcSplineUsed; // 计算基线时是否被使用
++|

@@ -1,0 +1,20 @@
+﻿+|
++|	
++|void CPlateTubeInfo::RecalculateSplineThreshold()
++|{
++|	for(int i=0; i<m_arrayTube.GetSize(); i++)
++|	{
++|		CTubeInfo* pTubeInfo = (CTubeInfo*)m_arrayTube.GetAt(i);
++|		if (pTubeInfo == NULL)
++|			continue;
++|
++|		int iTargetCount = pTubeInfo->GetTargetCount();
++|		for (int j=0; j<iTargetCount; j++)
++|		{
++|			CDyeTargetInfo* pTarget = pTubeInfo->GetTargetInfo(j);
++|			if (pTarget == NULL)
++|				continue;
++|			pTarget->SetCalcSplineThresholdUsed(FALSE);
++|		}
++|	}
++|}

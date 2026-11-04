@@ -1,0 +1,2 @@
+﻿+|	//void SetBeAutoThre(BOOL bAutoThre);
+-|	void SetBeAutoThre(BOOL bAutoThre);

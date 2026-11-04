@@ -1,0 +1,27 @@
+﻿  stdafx.cpp
+  dllmain.cpp
+  HeatMCheckParam.cpp
+  InstanceDemo.cpp
+  InstancePCR.cpp
+  InstancePS384.cpp
+  InstancePS96.cpp
+D:\PS96PCRV2.1.36\PCRInstanceLib\InstancePS96.cpp(207,21): warning C4244: “+=”: 从“float”转换到“int”，可能丢失数据
+D:\PS96PCRV2.1.36\PCRInstanceLib\InstancePS96.cpp(242,74): warning C4244: “+=”: 从“float”转换到“int”，可能丢失数据
+D:\PS96PCRV2.1.36\PCRInstanceLib\InstancePS96.cpp(256,55): warning C4244: “+=”: 从“float”转换到“int”，可能丢失数据
+D:\PS96PCRV2.1.36\PCRInstanceLib\InstancePS96.cpp(333,14): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+  InstrumentPCR.cpp
+  LogDataDB.cpp
+  LogFile.cpp
+  LogManager.cpp
+  PCRInstanceLib.cpp
+  PeltierCheckParam.cpp
+  PublicFun.cpp
+  SensorMCheckParam.cpp
+  SerialPortPCR.cpp
+    正在创建库 D:\PS96PCRV2.1.36\Release\PCRInstanceLib.lib 和对象 D:\PS96PCRV2.1.36\Release\PCRInstanceLib.exp
+  正在生成代码
+  0 of 1180 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  已完成代码的生成
+  PCRInstanceLib.vcxproj -> D:\PS96PCRV2.1.36\Release\PCRInstanceLib.dll

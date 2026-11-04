@@ -1,0 +1,22 @@
+﻿+|        ErrSequence[i] = fabs(temp);
++|                if (fabs(temp) <= Threshold)
++|    ///////////               ???????????                //////////////
++|        //????????Xo,p
++|        m_pdMinMaxXoP[3] = -1 * m_pdInterceptSlope[1]; //????С????????????????x0??p
++|        m_dSqrtR = RelativeIndex(m_pdMinMaxXoP);//????????????????????????????????
++|    m_pdMinMaxXoP[3] = 1.08; //????С????????????????x0??p
++|    ///////////////           ???????                ////////////
++|        //////???Newton??
++|        m_pdPartialMatrix[i * 4] = PartialYmin(temp) * m_pdWeight[i * m_iListLength + i]; //?????????
++|    for (l = 0; l < m_iListLength; l++) //??Var??Sum(Yi-Aver(Yi))^2
+-|        ErrSequence[i] = abs(temp);
+-|                if (abs(temp) <= Threshold)
+-|    ///////////               求四参数的初值                //////////////
+-|        //直线拟和求Xo,p
+-|        m_pdMinMaxXoP[3] = -1 * m_pdInterceptSlope[1]; //将最小二乘法求得的结果换算为x0、p
+-|        m_dSqrtR = RelativeIndex(m_pdMinMaxXoP);//计算初值得到的相关系数，生成加权因子矩阵
+-|    m_pdMinMaxXoP[3] = 1.08; //将最小二乘法求得的结果换算为x0、p
+-|    ///////////////           迭代求解                ////////////
+-|        //////下降Newton法
+-|        m_pdPartialMatrix[i * 4] = PartialYmin(temp) * m_pdWeight[i * m_iListLength + i]; //乘权重因子
+-|    for (l = 0; l < m_iListLength; l++) //求Var＝Sum(Yi-Aver(Yi))^2

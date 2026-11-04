@@ -1,0 +1,1 @@
+﻿+|	int AbleToCalculateCtBySndDerivative(int nPtCount, double *pInputX, double *pInputY, double dMinValue, int iValueCount=3);

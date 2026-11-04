@@ -1,0 +1,17 @@
+﻿+|void CLogManager::ResetLogFileName(CString strStartupPath)
++|	if (m_pLogRunFile != NULL)
++|		m_pLogRunFile->ResetFilePathName(strStartupPath);
++|	if (m_pLogErrorFile != NULL)
++|		m_pLogErrorFile->ResetFilePathName(strStartupPath);
++|	if (m_pLogCommFile != NULL)
++|		m_pLogCommFile->ResetFilePathName(strStartupPath);
++|	{
++|	}
++|	{
++|	}
++|
++|{
++|	{
++|	}
++|
++|}

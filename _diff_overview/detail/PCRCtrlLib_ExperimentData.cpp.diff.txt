@@ -1,0 +1,53 @@
+﻿+|	m_pPlateInfo->RecalculateSplineThreshold();
++|	// 扩增分析参数要求生成阈值线
++|	for (int i=0; i<iParamCount; i++)
++|		tagAnaAmplifyPara* pAmplifyPara = m_pAnalysisPara->GetAmplifyParaBy(i);
++|		if(NULL == pAmplifyPara)
++|		int iCtCount = 0;
++|		double dThresholdSum = 0;
++|		double dMaxYSumPC = 0;
++|		int iCtCountPC = 0;
++|		double dMaxFluoValue = 0;
++|		for(int iTubeIndex=0; iTubeIndex<iTubeCount; ++iTubeIndex)
++|			CTubeInfo* pTubeInfo = m_pPlateInfo->GetTubeInfo(iTubeIndex);
++|			CDyeTargetInfo*  pDyeTargetInfo = pTubeInfo->GetTargetInfo(pAmplifyPara->iChannelNo-1);
++|			if(NULL == pDyeTargetInfo || !pDyeTargetInfo->GetBeSelected() || pDyeTargetInfo->GetCalcSplineThresholdUsed())
++|			if (!pAmplifyPara->strTarget.IsEmpty() && pAmplifyPara->strTarget != pDyeTargetInfo->GetTargetName())
++|			pDyeTargetInfo->SetCalcSplineThresholdUsed(TRUE);
++|			double dMaxValue = m_pAmplifyData->GetChannelMaxValueY(nDataType,pTubeInfo->GetTubeID(), pDyeTargetInfo->GetChannel());
++|void CExperimentData::SetChannelSplineThreshold(int iTubeIndex, int iChannelNo, eAnalysisDataType nDataType, double dThreshold)
++|	CTubeInfo* pTubeInfo = GetTubeInfoAt(iTubeIndex);
++|	CDyeTargetInfo* pTarget = pTubeInfo->GetTargetInfo(iChannelNo-1);
++|	m_pAnalysisPara->SetChannelSplineThreshold(pTarget->GetTargetName(), pTarget->GetDyeName(), nDataType, dThreshold);
++|				continue;
++|	int iParamCount = m_pAnalysisPara->GetAmplifyParaCount();
+-|		//GenerateAutoSplineThresholdForChannel(nDataType,bCalcDefThre);
+-|	tagAnaAmplifyPara* pAmplifyPara = NULL;
+-|	int iCtCount = 0;
+-|	double dThresholdSum = 0;
+-|	double dMaxYSumPC = 0;
+-|	double dMaxFluoValue = 0;
+-|	int	iCtCountPC = 0;
+-|		pAmplifyPara = m_pAnalysisPara->GetAmplifyParaBy(j);
+-|		if(NULL == pAmplifyPara /*|| pAmplifyPara->nThresholdType != SPLINE_THRESHOLD_AUTO*/)
+-|		iCtCount = 0;
+-|		dThresholdSum = 0;
+-|		dMaxYSumPC = 0;
+-|		iCtCountPC = 0;
+-|		dMaxFluoValue = 0;
+-|		for(int iTubeIndex = 0;iTubeIndex < iTubeCount;++iTubeIndex)
+-|			pTubeInfo = m_pPlateInfo->GetTubeInfo(iTubeIndex);
+-|			double dMaxValue = m_pAmplifyData->GetChannelMaxValueY(nDataType,pTubeInfo->GetTubeID(),pDyeTargetInfo->GetChannel());
+-|void CExperimentData::SetChannelSplineThreshold(int iChannelNo, eAnalysisDataType nDataType, double dThreshold)
+-|	m_pAnalysisPara->SetChannelSplineThreshold(iChannelNo, nDataType, dThreshold);
+-|	for(int j = 0;j < m_iChannelCount;++j)
+-|			pDyeTargetInfo = pTubeInfo->GetTargetInfo(j);
+-|	if(m_iChannelCount < 1)
+-|	CDyeTargetInfo* pDyeTargetInfo = NULL;
+-|			if(NULL == pDyeTargetInfo || !pDyeTargetInfo->GetBeSelected())
+-|	CTubeInfo* pTubeInfo = NULL;
+-|		return -1;
+-|	{
+-|	}
+-|
+-|

@@ -1,0 +1,28 @@
+﻿+|//
++|//void CChanThreInfo::SetBeAutoThre(BOOL bAutoThre)
++|//{
++|//	m_tliNormolize.m_bAutoThre = bAutoThre;
++|//	m_tliNormolize.m_bFstDrawThreLine = TRUE;
++|//	m_tliDeltaRn.m_bAutoThre = bAutoThre;
++|//	m_tliDeltaRn.m_bFstDrawThreLine = TRUE;
++|//	m_tliLogNormolize.m_bAutoThre = bAutoThre;
++|//	m_tliLogNormolize.m_bFstDrawThreLine = TRUE;
++|//	m_tliLogDeltaRn.m_bAutoThre = bAutoThre;
++|//	m_tliLogDeltaRn.m_bFstDrawThreLine = TRUE;
++|//	return;
++|//}
++|//
+-|
+-|void CChanThreInfo::SetBeAutoThre(BOOL bAutoThre)
+-|{
+-|	m_tliNormolize.m_bAutoThre = bAutoThre;
+-|	m_tliNormolize.m_bFstDrawThreLine = TRUE;
+-|	m_tliDeltaRn.m_bAutoThre = bAutoThre;
+-|	m_tliDeltaRn.m_bFstDrawThreLine = TRUE;
+-|	m_tliLogNormolize.m_bAutoThre = bAutoThre;
+-|	m_tliLogNormolize.m_bFstDrawThreLine = TRUE;
+-|	m_tliLogDeltaRn.m_bAutoThre = bAutoThre;
+-|	m_tliLogDeltaRn.m_bFstDrawThreLine = TRUE;
+-|	return;
+-|}
+-|

@@ -1,0 +1,504 @@
+#pragma once
+
+#include "ExperimentInfo.h"
+#include "ReagentItem.h"
+#include "PlateTubeInfo.h"
+#include "PlateTubeData.h"
+#include "TemperatureData.h"
+#include "DataAnalysisPCR.h"
+#include "CalibrateParaTurbidity.h"
+#include "DataAnalysisPara.h"
+#include "ConfigureDBInfo.h"
+#include "HardwareInfo.h"
+#include "SamIdSiteRelation.h"
+#include "ExpStateInfo.h"
+#include "InstancePCR.h"
+#include "AxisInfo.h"
+#include "VolumeDelayParam.h"
+
+class AFX_EXT_CLASS CExperimentData
+{
+public:
+	CExperimentData(void);
+	~CExperimentData(void);
+
+	struct tagAddCycleInfo
+	{
+		int iSegmentNo;
+		int iAddNum;
+	};
+
+	enum eDataStatus
+	{
+		STATUS_NEW = 0, // �½�ʵ��
+		STATUS_SAVE, // ��Դ�ڱ����ļ�
+		STATUS_SAVE_DATA, // ��Դ�ڱ����ļ�����ʵ�����ݣ����ܽ�����ʵ������޸ĳ��װ������������
+		STATUS_CHANGE, // �����޸�
+		STATUS_USING, // ʵ��ִ�й��������ã������޸�ʵ������
+		STATUS_PLATE, // �޸Ŀװ����ã��������
+	};
+
+// Operations
+public:
+	void DeleteRunData(BOOL bOnlyData = TRUE);
+	void DeleteMeltData(BOOL bOnlyData = TRUE);
+	BOOL SaveFile(int iFile=0);
+	BOOL SaveFile(CString strFilePath,BOOL bTemplate = FALSE);
+	int OpenFile(CString strFilePath, BOOL bTemplate = FALSE);
+	BOOL HasRunData();
+	void InitDyeChannelInfo(CDyeInfoList* pListDye, CPtrArray* pArrayChannel);
+
+	//��������ÿ��ͨ��Ĭ����ɫֵ
+	int SetTubeDefaultTargetColor();	
+
+	//��ȡͨ����ǰ��ɫֵ
+	COLORREF GetChannelColor(int iChanId);
+
+	//��������ÿ��ͨ����Ĭ��Ⱦ����
+	int SetTubeDefaultDyeName();
+
+	//��ȡÿ��ͨ����Ĭ��Ⱦ������Ӧ�ø������ͺŹ�����CExperimentData�ְ����������ͺ���Ϣ
+	vector<CString>& GetDefaultDyeName();
+
+	//���桢��ȡ������Ϣ
+	BOOL WriteSegmentInfo(CFile* pFile);
+	BOOL ReadSegmentInfo(CFile* pFile,WORD wVersion);
+
+	// ���桢��ȡȾ��ͨ����Ϣ
+	BOOL WriteDyeInfo(CFile* pFile);
+	BOOL ReadDyeInfo(CFile* pFile,WORD wVersion);
+
+	//���桢��ȡͼ�οؼ���X/Y�����Сֵ
+	BOOL WriteDefaultAxisInfo(CFile* pFile);
+	BOOL ReadDefaultAxisInfo(CFile* pFile,WORD wVersion);
+
+	// �Լ���Ŀ��ز�������
+	void PasteReagentItemInfo(CReagentItem* pInputItem);
+	// ������Ŀ������ʼ��ѡ��ͨ��
+	void InitDyeTargetInfo(int iTubeID);
+
+	// �¶���غ���
+	int GetTempChannelCount();
+	void SetTempChannelCount(int iCount);
+	void AddTempData(DWORD dwTime,int nTempCount,UINT* pInputTemp,BOOL bMeltStepRunning); // ����һ���¶�ֵ
+	UINT GetCurTemp(CTemperatureData::eTempChannel nTempChannel, int iChannelNo=0); // ȡ�����PCR���¶�
+	DWORD GetCurTempCollectTime();
+	void SetLidHeater(BOOL bUseLid);
+	void SetTempTarget(float fTemp1, float fTemp2, float fTemp3) { return m_pTempData->SetChannelTarget(fTemp1, fTemp2, fTemp3); } 
+	int GetTempDataCount();
+	void GetTempTimeData(int iDataCount, double* pdValueTime);
+	void GetTempChannelData(CTemperatureData::eTempChannel nTempChannel, int iChannelNo, int iDataCount, double* pdValueTemp);
+
+	CTemperatureData* GetTemperatureData();
+
+	// ���������κ��۽�ε�ԭʼ����
+	void AddAmplifyCycleX(CUIntArray* pArrayCycle);
+	int AddAmplifyFluOriginalData(CUIntArray& aryOriData,int chanId);
+	void AddMeltCycleX(CUIntArray* pArrayCycle);
+	int AddMeltFluOriginalData(CUIntArray& aryOriData,int chanId,double dTem);
+	void SetScanStartPos(eScanStartPos nPos, int iColCount);
+
+	// ȡӫ�����ݣ������κ��۽��
+	int GetAmplifyDataNum();
+	UINT GetCurrentAmplifyCycleX(int iTubeID);
+	void GetAmplifyCycleX(int iTubeID, int iCycleCount, double* pdValueX);
+	void GetAmplifyChannelFluY(int iTubeID, eDataType nType, int iChannel, int iCycleCount, double* pdValueY);
+	double GetAmplifyChannelCycleFluY(int iTubeID, eDataType nType, int iChannel, int iCycleId);	//��ȡ�ض�ͨ��������λ��ĳ��ѭ����ӫ���ź�ֵ
+	
+	//��ȡ�������ݵ����
+	int GetMeltDataNum();
+	void GetMeltCycleX(int iTubeID, int iCycleCount, double* pdValueX);
+	double GetMeltCycleX(int iTubeID, int iCycleId);	//��ȡ�ض�ͨ��������λ����������ĳ��ѭ�����¶�ֵ
+	void GetMeltChannelFluY(int iTubeID, eDataType nType, int iChannel, int iCycleCount, double* pdValueY);
+	double GetMeltChannelCycleFluY(int iTubeID, eDataType nType, int iChannel, int iCycleId);
+
+	// �����Ρ��۽��ӫ�����ݴ���
+	BOOL ProcessAmplifyFluData(int nFlag = 5);  // �����������ݣ�����ͨ��ӫ�ⲹ�����˲����Ƕȵ���
+	BOOL ProcessMeltFluData(); // �����۽��ӫ������
+	BOOL MonitorProcessMeltFluData(int iPtCount);
+
+	void GenerateCt(BOOL bCalcDefThre,eMethodCalculateCt nMethod=METHOD_CT_USER, eDataType nDataType=FLU_NORMALIZATE);
+	void GenerateOneChannelCt(eMethodCalculateCt nMethod, eDataType nDataType,int iChanId);	//���㵥��ͨ������ֵ��Ϣ
+
+	void SetChannelSplineThreshold(int iTubeIndex, int iChannelNo, eAnalysisDataType nDataType, double dThreshold);
+
+	// ���ò���
+	void InitAlgorithmPara(CString strIniFile); // ��ʼ���㷨Ĭ�ϲ���
+	BOOL InitCrosstalkPara(CString strIniFile); // �������ļ��ж�ȡĬ�ϵĴ��Ų���
+	BOOL InitAmpCrosstalkParam(float** ppFData,int iChanNum);
+	BOOL InitMeltCrosstalkParam(float** ppFData,int iChanNum);
+	BOOL InitFilterInfo(CString strIniFile); // �������ļ��ж�ȡĬ�ϵ��˲�����
+	BOOL InitFilterInfo(vector<tagFilterItem>& vecFlt);
+
+	// ����ѭ����
+	int AddCycle(int iSegment,int iCount);
+
+	void SetTubeInfo(vector<CTubeInfo>& vecTubeInfo);
+	void SetTubeInfo(vector<CTubeInfo*>& vecPTubeInfo);
+	int SetTubeInfo(CTubeInfo* pTotalTubeInfo,int iTubeNum);
+
+	void GetTubeInfo(vector<CTubeInfo>& vecTubeInfo);
+	void GetAllTubeInfoPtr(vector<CTubeInfo*>& vecPTubeInfo);
+	CPtrArray* GetTubeInfoArrayPtr();
+	CTubeInfo* GetTubeInfoAt(int iIndex);	//��ȡ��(iIndex + 1)��������Ϣָ��
+
+	// ʵ������ǰ�ж����ݲ��������Ƿ����úͺ����������ʼ��ΪĬ��ֵ
+	BOOL CheckParaBeforeRun(CString strStartupPath);
+
+	int GetFirstEndCollectCycleNum();	//��ȡ������Ϣ�е�һ���յ�ɼ��������ڳ���ε�ѭ����
+	int GetFirstMeltCollectStartAndEndTemperature(double& dTemStart,double& dTemEnd);	//��ȡ������Ϣ�е�һ�������ɼ��������ʼ�¶Ⱥ���ֹ�¶�
+
+	void SetMonitorChannelBtSelectState(vector<int> vecData);
+	vector<int> GetMonitorChannelBtSelectState();	
+
+	void SetDataAnaChannelBtSelectState(vector<int> vecData);
+	vector<int> GetDataAnaChannelBtSelectState();
+
+	void SetMonitorChannelBtSelectState(int iChanId,int iSelState);	//���ü��ҳ�浥��ͨ���л���ťѡ��״̬��iChanId��0��ʼ
+	int GetMonitorChannelBtSelectState(int iChanId);	
+
+	void SetDataAnaChannelBtSelectState(int iChanId,int iSelState);	//���÷���ҳ�浥��ͨ���л���ťѡ��״̬��iChanId��0��ʼ
+	int GetDataAnaChannelBtSelectState(int iChanId);
+
+	void SetMonitorChannelBtAllSelected();	//���ü��ҳ��ͨ��ѡ��ťΪȫѡ״̬
+	void SetDataAnaChannelBtAllSelected();	//���÷���ҳ��ͨ��ѡ��ťΪȫѡ״̬
+
+	void ResetMonitorChannelBtSelectState();	//��ռ��ҳ��ͨ��ѡ��ť��ѡ��״̬
+	void ResetDataAnaChannelBtSelectState();	//��շ���ҳ��ͨ��ѡ��ť��ѡ��״̬
+
+	void SetChannelDyeName(vector<CString>& vecChanDyeName);	//����ͨ���л���ť��Ⱦ�����Ʊ�ʶ
+	void SetChannelDyeNameIfEmpty(vector<CString>& vecChanDyeName);
+	vector<CString> GetChannelDyeName();
+	BOOL GetBeValidChannelDyeName();
+	CString GetOneChannelDyeName(int iChanId);
+	void SetOneChannelDyeName(int iChanId,CString strChanDyeName);
+	int GetChannelDyeNameFromTubeInfo();	//��������Ϣ�л�ȡͨ���л���ť��Ⱦ�����Ʊ�ʶ
+
+	int GetRound(double r);	//�������빦��
+
+	// ���ݵ��뵼������
+	int InputSampleSetInfo(vector<eSampleType>* pVecSamType = NULL); // ��������������Ϣ
+	BOOL ExportSampleSetInfo(int iFlag = 0,int iIdVersion = 0); // ��������������Ϣ
+
+	int GetFilterCount();	//��ȡ�˲���������
+	tagFilterItem* GetFilterBy(int iIndex);	//��ȡ��iIndex + 1���˲�����
+
+	eSplineThresholdType GetSplineThresholdType();
+
+	int GetRowCount();	//��ȡ�װ�����
+	int GetColCount();	//��ȡ�װ�����
+
+	BOOL CheckSegmentExistDataCollect();
+	BOOL IsExistAmpSegmentLessThanCycleNum(int iCycleNum);
+
+	CItemChannelInfo* GetReagentChanInfo(int iChanId);	//��ȡ��Ŀ�е�ͨ��������Ϣ
+
+	CString GetProjectName();	//��ȡ��Ŀ����
+
+	void SetHardwareInfo(CHardwareInfo& info);
+	CHardwareInfo GetHardwareInfo();
+
+	CString GetStartTimeString();
+	CString GetEndTimeString();
+	CString GetEndTimeYMDString();
+	CString GetTotalTimeString();
+	CString GetExperName();
+	CString GetExperSaveFolder();
+
+	BOOL GetBePS96ExperFile();	//�ж��Ƿ���PS96��ʵ���ļ�
+	BOOL GetBeXINYIM16ExperFile();	//�ж��Ƿ�������M16��ʵ���ļ�
+	BOOL GetBeNQ16ExperFile();	//�ж��Ƿ���NQ16��ʵ���ļ�
+	BOOL GetBeN96ExperFile();	//�ж��Ƿ���N96��ʵ���ļ�
+
+	BOOL GetBeUseAvarageTemperature();	//�жϡ��Ƿ�ʹ�ö�ͨ��ƽ���¶���Ϊ�����¶ȡ�
+
+	BOOL GetBeNewExperFile();	//�ж��Ƿ����½���ʵ���ļ�
+
+	void SetNormalizeSelectLogState(BOOL bSelLogData);	//���ù�һ�����ݶ���ģʽ״̬��Ϣ
+	BOOL GetNormalizeSelectLogState();
+
+	void SetDeltaRnSelectLogState(BOOL bSelLogData);
+	BOOL GetDeltaRnSelectLogState();
+
+	void SetFilterSelectLogState(BOOL bSelLogData);
+	BOOL GetFilterSelectLogState();
+
+	int AutoTransformThresholdValue(int iDataType);	//����ģʽѡ��ı���Զ�ת����һ������DeltaRn����ֵ��Ϣ,iDataType,�������ͣ�0--��һ�����ݣ�1--DeltaRn����
+
+	int ReadOriginalDataFromExcel(CString strFileName,vector<double>* ppVecData);	//��Excel�ļ���ȡԭʼ����	
+
+	int SetTubeData(vector<double>* pVecData,int iTubeNum,int iChanNum);	//��������������Ϣ
+
+	int SetTubeInfoToBeAllProcessed();	//����������Ĭ����Ϣ������Ϊδ֪Ʒ��ͨ��ȫѡ�������ڡ����ⲿ����ӫ�����ݺ������������������ߡ���
+
+	void DeleteRunSegment();
+	void DeleteTubeInfo();
+
+	void GetSampleIdSiteIndexRelation(BOOL bHori);	//��������ID��������λ���з���
+
+	int GetResultFileDyeTargetTitle(vector<CString>& vecTitle);	//��ȡPS96�������ʱ Ctֵ�����еı��⣨���������-Ⱦ�����ƣ�
+
+	int GetChannelIsSelectedByAtLeastOneTube(vector<BOOL>& vecChanSelState);	//��ȡ�Ƿ���������λѡ��ĳ��ͨ��
+
+	BOOL IsSampleIdSet();	//��ȡ�Ƿ���������λ����������ID
+
+	BOOL IsAllNoneSampleType();	//��ȡ�Ƿ�ȫ���������������Ͷ�Ϊ��
+
+	BOOL IsSampleIdSetAtExceptNoneSampleType();	//��ȡ�Ƿ���������λ����������ID��NONE�������ͳ���
+
+	int SetChannelCrossTalkParam(double* pCrosstalkPara,int iChanCount);
+
+	CExpStateInfo GetExperimentStateInfo();	//��ȡʵ��״̬��Ϣ
+
+	double GetExperimentProgerss();	//��ȡʵ�������Ϣ
+
+	BOOL GetGradientFuncShieldState();	//��ȡ���Ƿ������ݶȹ��ܡ�
+
+	float GetFirstMeltStepStartTem();	//��ȡ��һ������������ʼ�¶�
+	float GetFirstMeltStepEndTem();	//��ȡ��һ����������Ŀ���¶�
+
+	void InitAmplifyParamByTubeTarget();
+
+protected:
+	void Initialize();
+	void DeleteAll();
+	void DeleteDyePara();
+	void DeleteCrosstalkPara();
+	void DeleteFilterPara();
+
+	int GenerateAutoSplineThresholdForChannel(eDataType nDataType,BOOL bAutoThreCopyToHandThre = FALSE);
+
+	BOOL WriteLog(CFile* pFile);
+	BOOL ReadLog(CFile* pFile,WORD wVersion);
+
+// Attributes
+public:
+	CExperimentInfo* GetExperimentInfo() { return m_pExpInfo; }
+	CReagentItem* GetReagentItem() { return m_pReagentItem; }
+	CPlateTubeInfo* GetPlateInfo() { return m_pPlateInfo; }
+
+	void SetSegment(CLinkList<CSegItemInfo>& lnkSegItem);
+	CLinkList<CSegItemInfo>& GetSegment();
+
+	void SetReachLidTemp(BOOL bReach) { m_bReachLidTemp = bReach; }
+	void SetNotReachTempOnce(int iCount) { m_iNotReachTempCount = iCount;}
+
+	int GetChannelCount() { return m_iChannelCount; }
+	void SetChannelCount(int iCount, BOOL bOpenFile=FALSE); // ����ɨ��ͨ����
+
+	int SetTubeChannelSelectState(int iChanId,BOOL bSelected);	//���������������ض�ͨ��ѡ��״̬,20220518,������
+
+	int GetDyeChannelCount() { return m_arrayDye.GetCount(); }
+	tagDyeChannelInfo* GetDyeChannelInfo(int iIndex);
+
+	float** GetCrosstalkPara() { return m_ppFCrosstalkPara; }
+	float** GetMeltCrosstalkPara() { return m_ppFMeltCrosstalk; }
+
+	void SetCalibrateMethod(eCalibrateMethod nMethod);
+	BOOL GetBeUseTurbidityCalibration();	//�ж��Ƿ�ʹ���Ƕ�У׼
+
+	CCalibrateParaTurbidity* GetTurbidityPara() { return m_pTurbidityPara; }
+	BOOL SaveCalibratePara();
+	void SetCalibrateChannel(int iChannel);
+	int GetCalibrateChannel();	//��ȡУ׼ͨ���ţ�������20221019�������ɣ�������У׼ͨ���򷵻�-1
+
+	eDataStatus GetStatus() { return m_nStatus; }
+	void SetStatus(eDataStatus nStatus);
+
+	int GetTubeCount();
+
+	void SetAnalysisPara(CDataAnalysisPara *pAnaParam);
+	CDataAnalysisPara* GetAnalysisPara() { return m_pAnalysisPara; }
+
+	tagAnaAmplifyPara* GetAmplifyParaBy(int nIndex); 
+	tagAnaMeltCurvePara* GetMeltAnaParamAt(int iIndex);
+
+	void SetFileName(CString strFileName){m_strFileName = strFileName;}
+	CString GetFileName(){return m_strFileName;}
+
+	void SetFilePath(CString strFilePath){m_strFileOpenPath = strFilePath;}
+	CString GetFilePath(){return m_strFileOpenPath;}
+
+	CString GetBackupFileCreateTime(){return m_strBackupFileCreateTime;}
+
+	int SetExpFileSaveDirectory(CString strDir);
+
+	void CreateBackupFilePath(CString strStarupPath);	//��������ʵ���ļ�
+	
+	void SetBeTemplateFile(BOOL bTemplateFile);
+	BOOL GetBeTemplateFile();
+
+	void SetIVDFileRstSaveFolder(CString strData);	
+	CString GetIVDFileRstSaveFolder();
+
+	void SetIVDFileRstSaveName(CString strData);	
+	CString GetIVDFileRstSaveName();
+
+	CString GetIVDResultFileSavePath();	//PS96IVDģʽ�£���ȡ�Զ������������·����
+	CString GetIVDResultFileSavePath2();
+
+	void SetFileOpenPath(CString strData);	//�����ļ���·��
+	CString GetFileOpenPath();
+
+	void SetDefaultAxisCount(int iCount);	//����Ĭ����������Ϣ����
+	int GetDefaultAxisCount();
+	int SetDefaultAxisInfoAt(int iIndex,CAxisInfo& axisInfo);
+	CAxisInfo GetDefaultAxisInfoAt(int iIndex);
+
+	int GetPreStepDelay(int iSeg,int iStep);	// ȡ��ָ������κͲ����ǰ��һ���ĵȴ�ʱ��
+	float GetPreStepTemperature(int iSeg,int iStep);	// ȡ��ָ������κͲ����ǰ��һ���ĵȴ�ʱ��
+
+	double GetStepVolumeDelaySec(double dStepTem);	//96��QPCR��ȡ����������Ķ�����ʱʱ�䣨���������裩����������
+	double GetTotalVolumeDelaySec(BOOL bIgnoreInstruType);	//96��QPCR��ȡ�������������ʱʱ�䣨���������裩����ʱ��
+
+	void SetUserName(CString strData);
+	CString GetUserName();
+
+	void SetCYSampleCategory(CString strData);
+	CString GetCYSampleCategory();
+
+	void SetCYSampleCount(CString strData);
+	CString GetCYSampleCount();
+
+	void SetCYSampleState(CString strData);
+	CString GetCYSampleState();
+
+	void SetCYProductBatchNumber(CString strData);
+	CString GetCYProductBatchNumber();
+
+	void SetCYTestItem(CString strData);
+	CString GetCYTestItem();
+
+	void SetCYComment(CString strData);
+	CString GetCYComment();
+
+	void SetCYReportNo(CString strData);
+	CString GetCYReportNo();
+
+	void SetCYCollectDate(CString strData);
+	CString GetCYCollectDate();
+
+	void SetTester(CString strData);
+	CString GetTester();
+
+	void SetReviewer(CString strData);
+	CString GetReviewer();
+
+	// �����л�ʱ�Գ�����������޸�
+	void CorrectSegmentNameByLanguage(CString strSource, CString strTarget, CString strStepSource, CString strStepTarget);
+
+	void AddLog(CString strLog) { m_arrayLog.Add(strLog); }
+	CString GetAbnormalLog();
+
+	void SetTemplateNane(CString strName) { m_strTemplateName = strName; }
+	CString GetTempateName() { return m_strTemplateName; }
+	static BOOL IsHpvAssayTemplate(const CString& strAssayName);
+	void ApplyAssayMeanFilterParam();
+
+	void SetExpRunning(BOOL bRunning) { m_bExpRunning = bRunning; }
+
+	void SetReconnectState(int  iState) { m_iReconnectState = iState; }
+	int GetReconnectState() { return m_iReconnectState; }
+	void ConnInterruptOnce();
+	int GetConnInterruptCount() { return m_iConnInterruptCount; }
+
+	void SetHasZeroValues(BOOL bHas) { m_bHasZeroValues = bHas; } 
+
+protected:
+	WORD	m_wFileFlag; // �ļ���ʶ��
+	WORD	m_wFileVersion; // �ļ��汾
+	WORD	m_wSoftFileMaxVer;	//����֧�ֵ���߰汾�ļ�
+
+	CDataAnalysisPCR*	m_pAlgorithm; // �㷨ָ��
+
+	CExperimentInfo*	m_pExpInfo; // ʵ�������Ϣ
+	CReagentItem*		m_pReagentItem; // �Լ���Ŀ
+	CPlateTubeInfo*		m_pPlateInfo; // �װ�������Ϣ
+
+	CLinkList<CSegItemInfo> m_lnkSegment;	//ʵ�鲽����Ϣ
+
+	int			m_iChannelCount; // ����ͨ����
+	CPtrArray	m_arrayDye; // �������õ�ͨ��Ⱦ�� tagDyeChannelInfo
+	float**		m_ppFCrosstalkPara; // ������Ų�������������ʹ��
+	float**		m_ppFMeltCrosstalk; // ������Ų�������������ʹ��
+	CPtrArray	m_arrayFilter; // �˲�����, tagFilterItem
+
+	eCalibrateMethod	m_nCalibrateMethod; // У׼����
+	CCalibrateParaTurbidity* m_pTurbidityPara; // У׼�������Ƕ�У׼
+
+	CDataAnalysisPara*	m_pAnalysisPara; // ��������
+
+	CTemperatureData*	m_pTempData; // �¶�����
+
+	CPlateAmplifyTubeData*	m_pAmplifyData; // ӫ����������
+	CPlateMeltTubeData*		m_pMeltData; // ӫ���۽�����
+
+	CPtrArray	m_arrayAddCycle; // ���ӵ�ѭ����
+
+	BOOL m_bReachLidTemp; // �ȸ��Ƿ�ﵽԤ���¶�
+	int	m_iNotReachTempCount; // ����û�дﵽ�����������涨����ʱ�䣨��60�룩
+
+	eDataStatus	m_nStatus; // ����״̬
+
+	vector<int> m_vecMonitorChanSelState;	//��¼���ҳ��ͨ��ѡ��״̬
+	vector<int> m_vecDataAnaChanSelState;	//��¼����ҳ��ͨ��ѡ��״̬
+
+	vector<CString> m_vecChanDyeName;	//ͨ���л���ť��Ⱦ�����Ʊ�ʶ������ͨ���л���ť��ʾ��
+	vector<CString> m_vecInstruDefDyeName;	//����ÿ��ͨ��Ĭ�ϵ�Ⱦ�����ƣ���ʱ�Ȳ�������ʵ���ļ��У�20220624
+
+	CString m_strFileOpenPath;	//��¼�ļ���ʱ������·����
+	CString m_strFileName;	//��¼�ļ���ʱ���ļ�����
+	CString m_strBackupFilePath; // �����ļ���
+
+	CString m_strBackupFileCreateTime;	//�����ļ�����ʱ�䣬���豣��
+	BOOL m_bTemplateFile;	//��ʶ�򿪵��ļ��Ƿ���ģ���ļ������豣�� 
+		
+	CHardwareInfo m_hardwareInfo;	//ʵ���ļ������Ӳ����Ϣ
+
+	BOOL m_bNormalizeSelLog;	//��ʶ��һ�������Ƿ�ʹ�ö������꣨���߻��ƿؼ��������꣩��20220616��������
+	BOOL m_bDeltaRnSelLog;	//��ʶDeltaRn�����Ƿ�ʹ�ö������꣨���߻��ƿؼ��������꣩��20220616��������
+	BOOL m_bFilterSelLog;	//��ʶ�˲����ԭʼ�����Ƿ�ʹ�ö������꣨���߻��ƿؼ��������꣩��20220616��������
+
+	CString m_strIVDFileRstSaveFolder;	//PS96IVDģʽ�£���¼����ʵ���ļ��ͽ��������ļ��У�����Ҫ���浽ʵ���ļ��У�20220627��������
+	CString m_strIVDFileRstSaveName;	//PS96IVDģʽ�£���¼����ʵ���ļ��ͽ����������ƣ�����Ҫ���浽ʵ���ļ��У�20220627��������
+
+	CLinkList<CAxisInfo> m_lnkDefAxisInfo;	//ʵ������󣬱���ͼ�οؼ���X/Y�����Сֵ
+
+	CVolumeDelayParam m_volumeDelayParam;	//��¼�������صĶ�����ʱ������Ϣ��N96����������ʹ�ã��ɱ��浽�ļ���
+
+	CString m_strUserName;
+
+	//������ʹ�õĹ���������Ϣ��������20221025
+	CString m_strCYSamCategory;
+	CString m_strCYSamCount;
+	CString m_strCYSamState;
+	CString m_strCYProductBN;
+	CString m_strCYTestItem;
+	CString m_strCYComment;
+	CString m_strCYCollectDate;
+
+	//ʵ��Ա�����Ա��20221027
+	CString m_strTester;	//ʵ��Ա����ʹ��
+	CString m_strReviewer;	//���Ա����ʹ��
+
+	CStringArray m_arrayLog; // ʵ��������ʾ��Ϣ�������������ļ���
+
+	CString m_strTemplateName;
+
+	int	m_iReconnectState; // ʵ���������������״̬ 0:�������û���ֹ 1:�Ͽ��������ɹ� 2:�Ͽ���ʵ��ʱ�䵽
+	int	m_iConnInterruptCount; // ���ӶϿ�����
+	BOOL m_bHasZeroValues;
+
+public:
+	CTime m_tmStart;	//��¼ʵ�鿪ʼʱ��ϵͳʱ�䣬���豣��
+	CTime m_tmEnd;	//��¼ʵ�����ʱ��ϵͳʱ�䣬���豣��
+
+	CSamIdSiteRelation m_samIdSiteRelation;	//�����������ʱʹ�ã�����Ҫ���浽ʵ���ļ���
+	CExpStateInfo m_ExpStateInfo;	//��¼ʵ��״̬��Ϣ������Ҫ���浽ʵ���ļ���
+	CInstancePCR* m_pInstance;	//��¼ʵ�����й����е���������
+
+	double m_dCurTem;	//��¼ʵ������е�ʵʱ�¶�
+	BOOL	m_bExpRunning;
+};
+
+

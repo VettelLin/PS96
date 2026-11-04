@@ -1,0 +1,10 @@
+﻿+|	m_vecChanThreInfo[iChanId].m_tliNormolize.SetBeShow(bShowThreLine);
++|	m_vecChanThreInfo[iChanId].m_tliDeltaRn.SetBeShow(bShowThreLine);
++|	m_vecChanThreInfo[iChanId].m_tliLogNormolize.SetBeShow(bShowThreLine);
++|	m_vecChanThreInfo[iChanId].m_tliLogDeltaRn.SetBeShow(bShowThreLine);
++|	bShowThreLine = m_vecChanThreInfo[iChanId].m_tliNormolize.GetBeShow();
+-|	m_vecChanThreInfo[iChanId].m_tliNormolize.m_bShow = bShowThreLine;
+-|	m_vecChanThreInfo[iChanId].m_tliDeltaRn.m_bShow = bShowThreLine;
+-|	m_vecChanThreInfo[iChanId].m_tliLogNormolize.m_bShow = bShowThreLine;
+-|	m_vecChanThreInfo[iChanId].m_tliLogDeltaRn.m_bShow = bShowThreLine;
+-|	bShowThreLine = m_vecChanThreInfo[iChanId].m_tliNormolize.m_bShow;

@@ -1,0 +1,5 @@
+﻿+|#include "LogManager.h"
++|	// 创建新的日志文件
++|	CLogManager::GetInstance()->ResetLogFileName(pPublicInfo->GetStartupPath());
++|
++|

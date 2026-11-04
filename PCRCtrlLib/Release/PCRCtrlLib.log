@@ -1,0 +1,85 @@
+﻿  stdafx.cpp
+  AxisInfo.cpp
+  CalibrateParaTurbidity.cpp
+  ConfigureDB.cpp
+  DataAnalysisPara.cpp
+  DyeTargetInfo.cpp
+  ExpDeviceStatusThread.cpp
+  ExpRunPara.cpp
+  ExpStateInfo.cpp
+  ExpTempDataThread.cpp
+  ExperimentData.cpp
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(62,25): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(1840,62): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(2504,18): warning C4018: “<”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(2763,28): warning C4018: “>=”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(2774,28): warning C4018: “>=”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(2783,28): warning C4018: “>=”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(2794,28): warning C4018: “>=”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(2803,18): warning C4018: “<”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(2812,18): warning C4018: “<”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(2821,18): warning C4018: “<”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(2830,18): warning C4018: “<”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(2868,18): warning C4018: “<”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(2881,58): warning C4018: “>=”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(2891,58): warning C4018: “>=”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(2962,12): warning C4244: “return”: 从“double”转换到“int”，可能丢失数据
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(3133,53): warning C4018: “>”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(3141,31): warning C4018: “<”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(3167,30): warning C4018: “>”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(3230,27): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(4498,21): warning C4018: “<”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(4516,20): warning C4018: “<”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(4676,64): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+  ExperimentInfo.cpp
+  HardwareInfo.cpp
+  LinkList.cpp
+  PCRCtrlLib.cpp
+  PlateTubeData.cpp
+D:\PS96PCRV2.1.36\PCRCtrlLib\PlateTubeData.cpp(428,20): warning C4018: “<”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\PlateTubeData.cpp(430,43): warning C4244: “参数”: 从“_Ty”转换到“UINT”，可能丢失数据
+D:\PS96PCRV2.1.36\PCRCtrlLib\PlateTubeData.cpp(430,43): warning C4244:         with
+D:\PS96PCRV2.1.36\PCRCtrlLib\PlateTubeData.cpp(430,43): warning C4244:         [
+D:\PS96PCRV2.1.36\PCRCtrlLib\PlateTubeData.cpp(430,43): warning C4244:             _Ty=double
+D:\PS96PCRV2.1.36\PCRCtrlLib\PlateTubeData.cpp(430,43): warning C4244:         ]
+  PlateTubeInfo.cpp
+D:\PS96PCRV2.1.36\PCRCtrlLib\PlateTubeInfo.cpp(366,19): warning C4018: “<”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\PlateTubeInfo.cpp(373,18): warning C4018: “<”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\PlateTubeInfo.cpp(393,19): warning C4018: “<”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\PlateTubeInfo.cpp(400,18): warning C4018: “<”: 有符号/无符号不匹配
+  PublicInfo.cpp
+  ReagentItem.cpp
+  ReagentItemManager.cpp
+  ReportTemplateData.cpp
+  正在编译...
+  SamIdSiteRelation.cpp
+D:\PS96PCRV2.1.36\PCRCtrlLib\SamIdSiteRelation.cpp(47,18): warning C4018: “<”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\SamIdSiteRelation.cpp(131,20): warning C4018: “>=”: 有符号/无符号不匹配
+  SampleInfo.cpp
+D:\PS96PCRV2.1.36\PCRCtrlLib\SampleInfo.cpp(30,53): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  SegItemInfo.cpp
+  StepItemInfo.cpp
+D:\PS96PCRV2.1.36\PCRCtrlLib\StepItemInfo.cpp(97,12): warning C4305: “初始化”: 从“double”到“float”截断
+D:\PS96PCRV2.1.36\PCRCtrlLib\StepItemInfo.cpp(98,12): warning C4305: “初始化”: 从“double”到“float”截断
+D:\PS96PCRV2.1.36\PCRCtrlLib\StepItemInfo.cpp(99,12): warning C4305: “初始化”: 从“double”到“float”截断
+D:\PS96PCRV2.1.36\PCRCtrlLib\StepItemInfo.cpp(100,12): warning C4305: “初始化”: 从“double”到“float”截断
+D:\PS96PCRV2.1.36\PCRCtrlLib\StepItemInfo.cpp(103,6): warning C4305: “=”: 从“double”到“float”截断
+  TemperatureData.cpp
+D:\PS96PCRV2.1.36\PCRCtrlLib\TemperatureData.cpp(265,16): warning C4018: “<”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\TemperatureData.cpp(271,41): warning C4018: “<”: 有符号/无符号不匹配
+  TubeData.cpp
+D:\PS96PCRV2.1.36\PCRCtrlLib\TubeData.cpp(266,14): warning C4018: “>=”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\TubeData.cpp(888,21): warning C4244: “初始化”: 从“double”转换到“UINT”，可能丢失数据
+D:\PS96PCRV2.1.36\PCRCtrlLib\TubeData.cpp(1799,21): warning C4244: “初始化”: 从“double”转换到“UINT”，可能丢失数据
+D:\PS96PCRV2.1.36\PCRCtrlLib\TubeData.cpp(1884,36): warning C4018: “>”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\TubeData.cpp(1907,30): warning C4018: “>=”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\TubeData.cpp(1957,20): warning C4018: “<”: 有符号/无符号不匹配
+  TubeInfo.cpp
+  VolumeDelayParam.cpp
+  dllmain.cpp
+    正在创建库 D:\PS96PCRV2.1.36\Release\PCRCtrlLib.lib 和对象 D:\PS96PCRV2.1.36\Release\PCRCtrlLib.exp
+  正在生成代码
+  Previous IPDB and IOBJ mismatch, fall back to full compilation.
+  All 2800 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  已完成代码的生成
+  PCRCtrlLib.vcxproj -> D:\PS96PCRV2.1.36\Release\PCRCtrlLib.dll

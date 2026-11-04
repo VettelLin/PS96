@@ -1,0 +1,73 @@
+﻿+|	peakAmlChkParam.m_iForeAvgMax = nDataNum;
++|		else if (nxpos_max > 3)
++|			peakAmlChkParam.m_iForeAvgMax = nxpos_max -2;
++|	//if (!bFindPeak && dXPosMax > 3)
++|	//	//bFindPeak = FindPeakAmlBySlope(nDataNum, pDX, pDY);
++|	//	int iFindIndex = AbleToCalculateCtBySndDerivative(nDataNum, pDX, pDY, 100);
++|	//	if (iFindIndex > 5)
++|	//		bFindPeak = TRUE;
++|	if (nForeID > peakAmlChkParam.m_iForeAvgMax)
++|		nForeID = peakAmlChkParam.m_iForeAvgMax;
++|	//{
++|	//	{
++|	//	}
++|	//}
++|
++|// 使用二阶导数连续超过某个最小值的5个数作为判定是否扩增的条件
++|int CDataAnalysisPCR::AbleToCalculateCtBySndDerivative(int nPtCount, double *pInputX, double *pInputY, double dMinValue, int iValueCount)
++|{
++|	int iLastPoint = -1;
++|	// 先进行均值滤波
++|	double *pDTempY = new double[nPtCount];
++|	if(NULL == pDTempY)
++|		return iLastPoint;
++|	memcpy(pDTempY, pInputY, sizeof(double)*nPtCount);
++|
++|	double *pDReturn = new double[nPtCount];
++|	if(NULL == pDReturn)
++|		delete pDTempY;
++|		return iLastPoint;
++|	for (int i=0; i<2; i++)
++|	{
++|		KdsptForwardMBackN_New(nPtCount,pDTempY,pDReturn, 2, 2);
++|		memcpy(pDTempY, pDReturn, sizeof(double)*nPtCount);
++|	}
++|
++|	double* pdSecondDer = new double[nPtCount];
++|	CalcSecondDerivative(nPtCount, pDReturn, pdSecondDer);
++|	int iLegalCount = 0;
++|	int iMinLegalCount = 0;
++|	for (int i=0; i<nPtCount; i++)
++|	{
++|		if (pdSecondDer[i] > 50)
++|		{
++|			iMinLegalCount ++;
++|		}
++|
++|		if (pdSecondDer[i] > dMinValue)
++|		{
++|			iLegalCount ++;
++|		}
++|		else
++|		{
++|			iLegalCount = 0;
++|		}
++|
++|		if (iLegalCount >= iValueCount)
++|		{
++|			iLastPoint = i;
++|			break;
++|		}
++|	}
++|
++|	//if (iMinLegalCount < 5 && iLastPoint > 0)
++|	//	iLastPoint = -1;
++|
++|	delete pDTempY;
++|	delete pDReturn;
++|	delete pdSecondDer;
++|	return iLastPoint;
++|}
+-|		else if (nxpos_max > 1)
+-|	if (!bFindPeak && dXPosMax > 3)
+-|		bFindPeak = FindPeakAmlBySlope(nDataNum, pDX, pDY);

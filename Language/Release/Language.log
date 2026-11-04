@@ -1,0 +1,12 @@
+﻿  stdafx.cpp
+  Language.cpp
+  LanguageInfo.cpp
+D:\PS96PCRV2.1.36\Language\LanguageInfo.cpp(148,20): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+D:\PS96PCRV2.1.36\Language\LanguageInfo.cpp(149,20): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+    正在创建库 D:\PS96PCRV2.1.36\Release\Language.lib 和对象 D:\PS96PCRV2.1.36\Release\Language.exp
+  正在生成代码
+  0 of 294 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  已完成代码的生成
+  Language.vcxproj -> D:\PS96PCRV2.1.36\Release\Language.dll

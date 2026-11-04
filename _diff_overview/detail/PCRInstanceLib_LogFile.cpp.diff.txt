@@ -1,0 +1,26 @@
+﻿+|void CLogRunFile::ResetFilePathName(CString strStartupPath)
++|	CreateLogPath(strStartupPath);
++|	m_strFileName = m_strFilePath + _T("\\PCRRun.log");
++|void CLogErrorFile::ResetFilePathName(CString strStartupPath)
++|	CreateLogPath(strStartupPath);
++|	m_strFileName = m_strFilePath + _T("\\PCRError.log");
++|{
++|	CString strTemp;
++|	CString strLog = pLogInfo->GetDate();
++|	//strLog = strTime.Right(strTime.GetLength()-11);
++|}
++|{
++|	CString strLog = CPublicFun::GetCurrentDateTime();
++|	//strLog = strTime.Right(strTime.GetLength()-11);
++|}
++|void CLogCommFile::ResetFilePathName(CString strStartupPath)
++|{
++|	CreateLogPath(strStartupPath);
++|	m_strFileName = m_strFilePath + _T("\\Comm") + GetCurrentTime() + _T(".log");
++|}
+-|	CString strLog, strTemp;
+-|	CString strTime = pLogInfo->GetDate();
+-|	strLog = strTime.Right(strTime.GetLength()-11);
+-|	CString strLog, strTemp;
+-|	CString strTime = CPublicFun::GetCurrentDateTime();
+-|	strLog = strTime.Right(strTime.GetLength()-11);

@@ -1,0 +1,33 @@
+﻿  ExpTempDataThread.cpp
+  ExperimentData.cpp
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(59,25): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(1831,62): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(2482,18): warning C4018: “<”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(2741,28): warning C4018: “>=”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(2752,28): warning C4018: “>=”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(2761,28): warning C4018: “>=”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(2772,28): warning C4018: “>=”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(2781,18): warning C4018: “<”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(2790,18): warning C4018: “<”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(2799,18): warning C4018: “<”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(2808,18): warning C4018: “<”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(2846,18): warning C4018: “<”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(2859,58): warning C4018: “>=”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(2869,58): warning C4018: “>=”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(2940,12): warning C4244: “return”: 从“double”转换到“int”，可能丢失数据
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(3111,53): warning C4018: “>”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(3119,31): warning C4018: “<”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(3145,30): warning C4018: “>”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(3208,27): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(4476,21): warning C4018: “<”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(4494,20): warning C4018: “<”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\ExperimentData.cpp(4654,64): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+  PlateTubeInfo.cpp
+D:\PS96PCRV2.1.36\PCRCtrlLib\PlateTubeInfo.cpp(273,19): warning C4018: “<”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\PlateTubeInfo.cpp(280,18): warning C4018: “<”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\PlateTubeInfo.cpp(295,19): warning C4018: “<”: 有符号/无符号不匹配
+D:\PS96PCRV2.1.36\PCRCtrlLib\PlateTubeInfo.cpp(302,18): warning C4018: “<”: 有符号/无符号不匹配
+  PublicInfo.cpp
+  TubeInfo.cpp
+  正在生成代码...
+  PCRCtrlLib.vcxproj -> D:\PS96PCRV2.1.36\Debug\PCRCtrlLib.dll

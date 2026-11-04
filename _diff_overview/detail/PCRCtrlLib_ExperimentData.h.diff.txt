@@ -1,0 +1,2 @@
+﻿+|	void SetChannelSplineThreshold(int iTubeIndex, int iChannelNo, eAnalysisDataType nDataType, double dThreshold);
+-|	void SetChannelSplineThreshold(int iChannelNo, eAnalysisDataType nDataType, double dThreshold);

@@ -1,0 +1,21 @@
+﻿+|			
++|			if (bHasCt)
++|				for (int i=0; i<iCurEnd; i++)// 根据Atila李佳薇要求，将平台期的数据都置零
++|					pDReturn[i] = 0;
++|			else // 2026-7-9 根据客户要求将无Ct的DeltaRn数据Y值都设置为0
++|				for (int i=0; i<nCycleCount; i++)
++|				{
++|					pDReturn[i] = 0;
++|				}
++|				{
++|				}
++|			{
++|			}
+-|						//ASSERT(iCurStart == pDyeInfo->GetBaselineStart());
+-|						//ASSERT(iCurEnd == pDyeInfo->GetBaselineEnd());
+-|						//ASSERT(iCurStart == pDyeInfo->GetBaselineStart());
+-|						//ASSERT(iCurEnd == pDyeInfo->GetBaselineEnd());
+-|			// 根据Atila李佳薇要求，将平台期的数据都置零
+-|			for (int i=0; i<iCurEnd; i++)
+-|				pDReturn[i] = 0;
+-|

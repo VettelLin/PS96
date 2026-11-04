@@ -1,0 +1,31 @@
+﻿+|void CDataAnalysisPara::SetChannelSplineThreshold(CString strTarget, CString strDye, eAnalysisDataType nDataType, double dThreshold)
++|	tagAnaAmplifyPara* pAmlParam = GetAmplifyParaByTarget(strTarget, strDye);
++|	if (pAmlParam == NULL)
++|		pAmlParam = GetAmplifyParaByDye(strDye);
++|	if (pAmlParam == NULL)
++|		return;
++|	if (nDataType == DEFAULT_DATA_DELTARN)
++|	{
++|		pAmlParam->dCalcDeltaRnThreshold = dThreshold;
++|		pAmlParam->nThresholdType = SPLINE_THRESHOLD_DELTARN;
++|	}
++|	else
++|	{
++|		pAmlParam->dCalcNormalizeThreshold = dThreshold;
++|		pAmlParam->nThresholdType = SPLINE_THRESHOLD_NORMALIZE;
++|	}
+-|void CDataAnalysisPara::SetChannelSplineThreshold(int iChannelNo, eAnalysisDataType nDataType, double dThreshold)
+-|	for (int i=0; i<m_arrayAmplifyPara.GetCount(); i++)
+-|		tagAnaAmplifyPara* pItem = (tagAnaAmplifyPara*)m_arrayAmplifyPara.GetAt(i);
+-|		if (pItem == NULL || pItem->iChannelNo != iChannelNo)
+-|			continue;
+-|		if (nDataType == DEFAULT_DATA_DELTARN)
+-|		{
+-|			pItem->dCalcDeltaRnThreshold = dThreshold;
+-|			pItem->nThresholdType = SPLINE_THRESHOLD_DELTARN;
+-|		}
+-|		else
+-|		{
+-|			pItem->dCalcNormalizeThreshold = dThreshold;
+-|			pItem->nThresholdType = SPLINE_THRESHOLD_NORMALIZE;
+-|		}

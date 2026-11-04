@@ -1,0 +1,20 @@
+﻿  stdafx.cpp
+  CurveFit.cpp
+  ExpFitting.cpp
+  Fitting.cpp
+  InvertLogisticFit.cpp
+  LeastSquare.cpp
+  LnFitting.cpp
+  LogisticFit.cpp
+  PowerFitting.cpp
+  msjexhnd.cpp
+D:\PS96PCRV2.1.36\CurveFit\msjexhnd.cpp(67,13): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\PS96PCRV2.1.36\CurveFit\msjexhnd.cpp(77,4): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\PS96PCRV2.1.36\CurveFit\msjexhnd.cpp(104,5): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+    正在创建库 D:\PS96PCRV2.1.36\Release\CurveFit.lib 和对象 D:\PS96PCRV2.1.36\Release\CurveFit.exp
+  正在生成代码
+  0 of 198 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  已完成代码的生成
+  CurveFit.vcxproj -> D:\PS96PCRV2.1.36\Release\CurveFit.dll

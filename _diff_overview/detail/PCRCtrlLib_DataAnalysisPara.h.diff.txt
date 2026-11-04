@@ -1,0 +1,2 @@
+﻿+|	void SetChannelSplineThreshold(CString strTarget, CString strDye, eAnalysisDataType nDataType, double dThreshold);
+-|	void SetChannelSplineThreshold(int iChannelNo, eAnalysisDataType nDataType, double dThreshold);

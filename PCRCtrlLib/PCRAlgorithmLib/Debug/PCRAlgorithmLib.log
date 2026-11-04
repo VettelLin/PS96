@@ -1,0 +1,18 @@
+﻿  stdafx.cpp
+  DataAlgorithm.cpp
+  DataAlgorithmPCR.cpp
+  DataAnalysisPCR.cpp
+  ExpFitting.cpp
+D:\PS96PCRV2.1.36\PCRCtrlLib\PCRAlgorithmLib\DataAnalysisPCR.cpp(645,26): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+D:\PS96PCRV2.1.36\PCRCtrlLib\PCRAlgorithmLib\DataAnalysisPCR.cpp(648,10): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+  Fitting.cpp
+  InvertLogisticFit.cpp
+  LeastSquare.cpp
+  LnFitting.cpp
+  LogisticFit.cpp
+  PCRAlgorithmLib.cpp
+  PeakAmlCheckParam.cpp
+  正在生成代码...
+  dllmain.cpp
+    正在创建库 D:\PS96PCRV2.1.36\Debug\PCRAlgorithmLib.lib 和对象 D:\PS96PCRV2.1.36\Debug\PCRAlgorithmLib.exp
+  PCRAlgorithmLib.vcxproj -> D:\PS96PCRV2.1.36\Debug\PCRAlgorithmLib.dll
